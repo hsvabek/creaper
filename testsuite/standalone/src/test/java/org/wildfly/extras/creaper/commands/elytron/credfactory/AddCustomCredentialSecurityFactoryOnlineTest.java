@@ -13,9 +13,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.Property;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extras.creaper.commands.elytron.AbstractElytronOnlineTest;
@@ -27,7 +25,7 @@ import org.wildfly.extras.creaper.core.online.operations.Address;
 
 
 @RunWith(Arquillian.class)
-@Ignore("https://issues.jboss.org/browse/WFLY-8151")
+// @Ignore("https://issues.jboss.org/browse/WFLY-8151")
 public class AddCustomCredentialSecurityFactoryOnlineTest extends AbstractElytronOnlineTest {
 
     private static final String TEST_ADD_CUSTOM_CRED_SEC_FACTORY_NAME = "CreaperTestAddCustomCredentialSecurityFactory";
@@ -52,7 +50,7 @@ public class AddCustomCredentialSecurityFactoryOnlineTest extends AbstractElytro
         }
     }
 
-    @AfterClass
+    // @AfterClass
     public static void afterClass() throws IOException, CommandFailedException, InterruptedException, TimeoutException {
         try (OnlineManagementClient client = createManagementClient()) {
             RemoveModule removeModule = new RemoveModule(CUSTOM_CRED_SEC_FACTORY_MODULE_NAME);

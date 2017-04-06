@@ -26,14 +26,16 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
 import org.wildfly.security.auth.server.RealmMapper;
 import org.wildfly.security.evidence.Evidence;
 
 public class AddCustomRealmMapperImpl implements RealmMapper, Configurable {
 
     @Override
-    public String getRealmMapping(String name, Principal principal, Evidence evidence) {
-        return "anyRealm";
+    public String getRealmMapping(Principal principal, Evidence evidence) {
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override
@@ -42,4 +44,5 @@ public class AddCustomRealmMapperImpl implements RealmMapper, Configurable {
             throw new IllegalStateException("Only test purpose. This exception was thrown on demand.");
         }
     }
+
 }

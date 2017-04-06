@@ -159,6 +159,8 @@ public abstract class AbstractElytronOnlineTest {
         File testJar = File.createTempFile(namePrefix, ".jar");
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
             .addClasses(classes);
+        // TODO hsvabek 2017_03_06 only for custom implementation manual smoke tests....
+        jar.addClass(CustomImplInvocationRuntimeException.class);
         jar.as(ZipExporter.class).exportTo(testJar, true);
         return testJar;
     }

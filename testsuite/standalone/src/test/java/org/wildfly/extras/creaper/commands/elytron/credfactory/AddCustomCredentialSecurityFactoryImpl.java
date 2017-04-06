@@ -27,13 +27,15 @@ import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
 import org.wildfly.extension.elytron.capabilities.CredentialSecurityFactory;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
 import org.wildfly.security.credential.Credential;
 
 public class AddCustomCredentialSecurityFactoryImpl<T> implements CredentialSecurityFactory, Configurable {
 
     @Override
     public Credential create() throws GeneralSecurityException {
-        return null;
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override

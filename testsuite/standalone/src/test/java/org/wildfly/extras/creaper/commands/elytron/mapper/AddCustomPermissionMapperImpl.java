@@ -25,6 +25,7 @@ package org.wildfly.extras.creaper.commands.elytron.mapper;
 import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
 import org.wildfly.security.authz.PermissionMappable;
 import org.wildfly.security.authz.PermissionMapper;
 import org.wildfly.security.authz.Roles;
@@ -34,7 +35,8 @@ public class AddCustomPermissionMapperImpl implements PermissionMapper, Configur
 
     @Override
     public PermissionVerifier mapPermissions(PermissionMappable permissionMappable, Roles roles) {
-        return PermissionVerifier.ALL;
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override

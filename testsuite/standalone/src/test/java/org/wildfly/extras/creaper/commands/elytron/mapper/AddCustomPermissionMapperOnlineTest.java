@@ -13,7 +13,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.Property;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +49,7 @@ public class AddCustomPermissionMapperOnlineTest extends AbstractElytronOnlineTe
         }
     }
 
-    @AfterClass
+    // @AfterClass
     public static void afterClass() throws IOException, CommandFailedException, InterruptedException, TimeoutException {
         try (OnlineManagementClient client = createManagementClient()) {
             RemoveModule removeModule = new RemoveModule(CUSTOM_PERMISSION_MAPPER_MODULE_NAME);

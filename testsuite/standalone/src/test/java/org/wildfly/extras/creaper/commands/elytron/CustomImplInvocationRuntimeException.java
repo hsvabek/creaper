@@ -20,27 +20,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.extras.creaper.commands.elytron.mapper;
+package org.wildfly.extras.creaper.commands.elytron;
 
-import java.util.Map;
+public class CustomImplInvocationRuntimeException extends RuntimeException {
 
-import org.wildfly.extension.elytron.Configurable;
-import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
-import org.wildfly.security.authz.RoleMapper;
-import org.wildfly.security.authz.Roles;
+    private static final long serialVersionUID = 1L;
 
-public class AddCustomRoleMapperImpl implements RoleMapper, Configurable {
-
-    @Override
-    public Roles mapRoles(Roles rolesToMap) {
-        throw new CustomImplInvocationRuntimeException(
-            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
+    public CustomImplInvocationRuntimeException() {
+        super();
     }
 
-    @Override
-    public void initialize(Map<String, String> configuration) {
-        if (configuration.containsKey("throwException")) {
-            throw new IllegalStateException("Only test purpose. This exception was thrown on demand.");
-        }
+    public CustomImplInvocationRuntimeException(String message) {
+        super(message);
     }
 }

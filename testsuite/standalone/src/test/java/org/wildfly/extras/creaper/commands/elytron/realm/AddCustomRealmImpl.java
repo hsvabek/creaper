@@ -22,34 +22,42 @@
 
 package org.wildfly.extras.creaper.commands.elytron.realm;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
-import org.wildfly.security.auth.server.IdentityLocator;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
+import org.wildfly.security.auth.SupportLevel;
 import org.wildfly.security.auth.server.RealmIdentity;
 import org.wildfly.security.auth.server.RealmUnavailableException;
 import org.wildfly.security.auth.server.SecurityRealm;
-import org.wildfly.security.auth.server.SupportLevel;
 import org.wildfly.security.credential.Credential;
 import org.wildfly.security.evidence.Evidence;
 
 public class AddCustomRealmImpl implements SecurityRealm, Configurable {
 
     @Override
-    public RealmIdentity getRealmIdentity(IdentityLocator locator) throws RealmUnavailableException {
-        return null;
+    public RealmIdentity getRealmIdentity(Principal principal) throws RealmUnavailableException {
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override
-    public SupportLevel getCredentialAcquireSupport(Class<? extends Credential> credentialType, String algorithmName)
-        throws RealmUnavailableException {
-        return null;
+    public RealmIdentity getRealmIdentity(Evidence evidence) throws RealmUnavailableException {
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override
-    public SupportLevel getEvidenceVerifySupport(Class<? extends Evidence> evidenceType, String algorithmName)
+    public SupportLevel getCredentialAcquireSupport(final Class<? extends Credential> credentialType,
+        final String algorithmName) throws RealmUnavailableException {
+        return SupportLevel.SUPPORTED;
+    }
+
+    @Override
+    public SupportLevel getEvidenceVerifySupport(final Class<? extends Evidence> evidenceType, final String algorithmName)
         throws RealmUnavailableException {
-        return null;
+        return SupportLevel.SUPPORTED;
     }
 
     @Override

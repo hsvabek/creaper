@@ -25,6 +25,7 @@ package org.wildfly.extras.creaper.commands.elytron.mapper;
 import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
 import org.wildfly.security.authz.AuthorizationIdentity;
 import org.wildfly.security.authz.RoleDecoder;
 import org.wildfly.security.authz.Roles;
@@ -33,7 +34,8 @@ public class AddCustomRoleDecoderImpl implements RoleDecoder, Configurable {
 
     @Override
     public Roles decodeRoles(AuthorizationIdentity authorizationIdentity) {
-        return Roles.of("anyRole");
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override

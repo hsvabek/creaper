@@ -33,7 +33,9 @@ public class AddCustomPrincipalDecoderImpl implements PrincipalDecoder, Configur
 
     @Override
     public String getName(Principal principal) {
-        return "somePrincipal";
+        // throw new CustomImplInvocationRuntimeException(
+        // String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
+        return "testuser";
     }
 
     @Override

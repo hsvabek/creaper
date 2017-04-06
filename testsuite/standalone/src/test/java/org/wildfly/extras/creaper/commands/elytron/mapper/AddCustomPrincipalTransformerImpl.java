@@ -22,16 +22,19 @@
 
 package org.wildfly.extras.creaper.commands.elytron.mapper;
 
-import org.wildfly.extension.elytron.Configurable;
 import java.security.Principal;
 import java.util.Map;
+
+import org.wildfly.extension.elytron.Configurable;
 import org.wildfly.extension.elytron.capabilities.PrincipalTransformer;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
 
 public class AddCustomPrincipalTransformerImpl implements PrincipalTransformer, Configurable {
 
     @Override
     public Principal apply(Principal p) {
-        return p;
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override

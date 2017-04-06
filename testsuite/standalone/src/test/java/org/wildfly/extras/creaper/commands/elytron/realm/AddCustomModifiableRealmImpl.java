@@ -22,46 +22,32 @@
 
 package org.wildfly.extras.creaper.commands.elytron.realm;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.wildfly.extension.elytron.Configurable;
+import org.wildfly.extras.creaper.commands.elytron.CustomImplInvocationRuntimeException;
+import org.wildfly.security.auth.SupportLevel;
 import org.wildfly.security.auth.server.CloseableIterator;
-import org.wildfly.security.auth.server.IdentityLocator;
 import org.wildfly.security.auth.server.ModifiableRealmIdentity;
 import org.wildfly.security.auth.server.ModifiableSecurityRealm;
 import org.wildfly.security.auth.server.RealmIdentity;
 import org.wildfly.security.auth.server.RealmUnavailableException;
-import org.wildfly.security.auth.server.SupportLevel;
 import org.wildfly.security.credential.Credential;
 import org.wildfly.security.evidence.Evidence;
 
 public class AddCustomModifiableRealmImpl implements ModifiableSecurityRealm, Configurable {
 
     @Override
-    public RealmIdentity getRealmIdentity(IdentityLocator locator) throws RealmUnavailableException {
-        return null;
+    public RealmIdentity getRealmIdentity(Principal principal) throws RealmUnavailableException {
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override
-    public SupportLevel getCredentialAcquireSupport(Class<? extends Credential> credentialType, String algorithmName)
-        throws RealmUnavailableException {
-        return null;
-    }
-
-    @Override
-    public SupportLevel getEvidenceVerifySupport(Class<? extends Evidence> evidenceType, String algorithmName)
-        throws RealmUnavailableException {
-        return null;
-    }
-
-    @Override
-    public ModifiableRealmIdentity getRealmIdentityForUpdate(IdentityLocator locator) throws RealmUnavailableException {
-        return null;
-    }
-
-    @Override
-    public CloseableIterator<ModifiableRealmIdentity> getRealmIdentityIterator() throws RealmUnavailableException {
-        return null;
+    public RealmIdentity getRealmIdentity(Evidence evidence) throws RealmUnavailableException {
+        throw new CustomImplInvocationRuntimeException(
+            String.format("Custom implementation of [%s] was invoked", this.getClass().getSimpleName()));
     }
 
     @Override
@@ -69,5 +55,22 @@ public class AddCustomModifiableRealmImpl implements ModifiableSecurityRealm, Co
         if (configuration.containsKey("throwException")) {
             throw new IllegalStateException("Only test purpose. This exception was thrown on demand.");
         }
+    }
+
+    @Override
+    public SupportLevel getCredentialAcquireSupport(Class<? extends Credential> credentialType, String algorithmName)
+        throws RealmUnavailableException {
+        return SupportLevel.POSSIBLY_SUPPORTED;
+    }
+
+    @Override
+    public SupportLevel getEvidenceVerifySupport(Class<? extends Evidence> evidenceType, String algorithmName)
+        throws RealmUnavailableException {
+        return SupportLevel.POSSIBLY_SUPPORTED;
+    }
+
+    @Override
+    public CloseableIterator<ModifiableRealmIdentity> getRealmIdentityIterator() throws RealmUnavailableException {
+        return CloseableIterator.emptyIterator();
     }
 }
